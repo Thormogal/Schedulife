@@ -16,6 +16,8 @@
 		CE7AE9842BD6EAAA00B3FD1E /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = CE7AE9832BD6EAAA00B3FD1E /* FirebaseAuth */; };
 		CE7AE9862BD6EAAA00B3FD1E /* FirebaseFirestoreSwift in Frameworks */ = {isa = PBXBuildFile; productRef = CE7AE9852BD6EAAA00B3FD1E /* FirebaseFirestoreSwift */; };
 		CEA1534B2BD9872C0038CBEB /* Habit.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA1534A2BD9872B0038CBEB /* Habit.swift */; };
+		CEA1534E2BD98C0B0038CBEB /* FirebaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA1534D2BD98C0A0038CBEB /* FirebaseManager.swift */; };
+		CEA153502BD98DCC0038CBEB /* HabitViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA1534F2BD98DCC0038CBEB /* HabitViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +28,8 @@
 		CE7AE9772BD6DBDE00B3FD1E /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		CE7AE97E2BD6E35300B3FD1E /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		CEA1534A2BD9872B0038CBEB /* Habit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Habit.swift; sourceTree = "<group>"; };
+		CEA1534D2BD98C0A0038CBEB /* FirebaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseManager.swift; sourceTree = "<group>"; };
+		CEA1534F2BD98DCC0038CBEB /* HabitViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -62,6 +66,7 @@
 			isa = PBXGroup;
 			children = (
 				CE7AE9702BD6DBDB00B3FD1E /* SchedulifeApp.swift */,
+				CEA1534D2BD98C0A0038CBEB /* FirebaseManager.swift */,
 				CEA153492BD96E120038CBEB /* ViewModels */,
 				CEA153482BD96E070038CBEB /* Models */,
 				CEA153472BD96DFA0038CBEB /* Views */,
@@ -99,6 +104,7 @@
 		CEA153492BD96E120038CBEB /* ViewModels */ = {
 			isa = PBXGroup;
 			children = (
+				CEA1534F2BD98DCC0038CBEB /* HabitViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -182,7 +188,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CEA1534E2BD98C0B0038CBEB /* FirebaseManager.swift in Sources */,
 				CEA1534B2BD9872C0038CBEB /* Habit.swift in Sources */,
+				CEA153502BD98DCC0038CBEB /* HabitViewModel.swift in Sources */,
 				CE7AE9732BD6DBDB00B3FD1E /* MainView.swift in Sources */,
 				CE7AE9712BD6DBDB00B3FD1E /* SchedulifeApp.swift in Sources */,
 			);
