@@ -18,6 +18,7 @@
 		CEA1534B2BD9872C0038CBEB /* Habit.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA1534A2BD9872B0038CBEB /* Habit.swift */; };
 		CEA1534E2BD98C0B0038CBEB /* FirebaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA1534D2BD98C0A0038CBEB /* FirebaseManager.swift */; };
 		CEA153502BD98DCC0038CBEB /* HabitViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA1534F2BD98DCC0038CBEB /* HabitViewModel.swift */; };
+		CEA153522BD993E90038CBEB /* Repetition.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA153512BD993E90038CBEB /* Repetition.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -30,6 +31,7 @@
 		CEA1534A2BD9872B0038CBEB /* Habit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Habit.swift; sourceTree = "<group>"; };
 		CEA1534D2BD98C0A0038CBEB /* FirebaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseManager.swift; sourceTree = "<group>"; };
 		CEA1534F2BD98DCC0038CBEB /* HabitViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitViewModel.swift; sourceTree = "<group>"; };
+		CEA153512BD993E90038CBEB /* Repetition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Repetition.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -97,6 +99,7 @@
 			isa = PBXGroup;
 			children = (
 				CEA1534A2BD9872B0038CBEB /* Habit.swift */,
+				CEA153512BD993E90038CBEB /* Repetition.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -190,6 +193,7 @@
 			files = (
 				CEA1534E2BD98C0B0038CBEB /* FirebaseManager.swift in Sources */,
 				CEA1534B2BD9872C0038CBEB /* Habit.swift in Sources */,
+				CEA153522BD993E90038CBEB /* Repetition.swift in Sources */,
 				CEA153502BD98DCC0038CBEB /* HabitViewModel.swift in Sources */,
 				CE7AE9732BD6DBDB00B3FD1E /* MainView.swift in Sources */,
 				CE7AE9712BD6DBDB00B3FD1E /* SchedulifeApp.swift in Sources */,
