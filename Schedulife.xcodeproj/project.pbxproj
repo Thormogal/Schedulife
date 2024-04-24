@@ -19,6 +19,7 @@
 		CEA1534E2BD98C0B0038CBEB /* FirebaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA1534D2BD98C0A0038CBEB /* FirebaseManager.swift */; };
 		CEA153502BD98DCC0038CBEB /* HabitViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA1534F2BD98DCC0038CBEB /* HabitViewModel.swift */; };
 		CEA153522BD993E90038CBEB /* Repetition.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA153512BD993E90038CBEB /* Repetition.swift */; };
+		CEA153542BD994B10038CBEB /* Reminder.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA153532BD994B10038CBEB /* Reminder.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -32,6 +33,7 @@
 		CEA1534D2BD98C0A0038CBEB /* FirebaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseManager.swift; sourceTree = "<group>"; };
 		CEA1534F2BD98DCC0038CBEB /* HabitViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitViewModel.swift; sourceTree = "<group>"; };
 		CEA153512BD993E90038CBEB /* Repetition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Repetition.swift; sourceTree = "<group>"; };
+		CEA153532BD994B10038CBEB /* Reminder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Reminder.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -100,6 +102,7 @@
 			children = (
 				CEA1534A2BD9872B0038CBEB /* Habit.swift */,
 				CEA153512BD993E90038CBEB /* Repetition.swift */,
+				CEA153532BD994B10038CBEB /* Reminder.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -192,6 +195,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				CEA1534E2BD98C0B0038CBEB /* FirebaseManager.swift in Sources */,
+				CEA153542BD994B10038CBEB /* Reminder.swift in Sources */,
 				CEA1534B2BD9872C0038CBEB /* Habit.swift in Sources */,
 				CEA153522BD993E90038CBEB /* Repetition.swift in Sources */,
 				CEA153502BD98DCC0038CBEB /* HabitViewModel.swift in Sources */,
