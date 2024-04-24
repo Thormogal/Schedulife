@@ -10,20 +10,26 @@ import SwiftUI
 struct MainView: View {
     var body: some View {
         TabView {
-            OverviewView()
-                .tabItem {
-                    Label("Overview", systemImage: "house")
-                }
+            NavigationView {
+                OverviewView()
+            }
+            .tabItem {
+                Label("Overview", systemImage: "house")
+            }
 
-            ScheduleView()
-                .tabItem {
-                    Label("Schedule", systemImage: "calendar")
-                }
+            NavigationView {
+                ScheduleView()
+            }
+            .tabItem {
+                Label("Schedule", systemImage: "calendar")
+            }
 
-            StatsView()
-                .tabItem {
-                    Label("Stats", systemImage: "chart.bar")
-                }
+            NavigationView {
+                StatsView()
+            }
+            .tabItem {
+                Label("Stats", systemImage: "chart.bar")
+            }
         }
     }
 }
@@ -32,7 +38,7 @@ struct OverviewView: View {
     @State private var showingAddHabit = false
     
     var body: some View {
-        NavigationView {
+        VStack {
             Text("Overview of Habits")
                 .navigationBarTitle("Habits", displayMode: .inline)
                 .navigationBarItems(trailing: addButton)
@@ -64,15 +70,9 @@ struct StatsView: View {
     }
 }
 
-struct AddHabitView: View {
-    var body: some View {
-        Text("Add a new Habit")
-    }
-}
-
-struct MainView_Previews: PreviewProvider {
-    static var previews: some View {
-        MainView()
-    }
-}
+//struct MainView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        MainView()
+//    }
+//}
 

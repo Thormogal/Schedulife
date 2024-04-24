@@ -4,16 +4,24 @@
 //
 //  Created by Oskar Lövstrand on 2024-04-24.
 //
-
 import Foundation
 
-struct Reminder: Identifiable {
-    var id: String { label }
-    let label: String
-    let timeInterval: TimeInterval?
+enum Reminder: String, CaseIterable, Identifiable {
+    case oneHour = "1 hour before"
+    case oneDay = "1 day before"
+    case oneWeek = "1 week before"
+    case custom = "Customized"
 
-    static let oneHour = Reminder(label: "1 timme innan", timeInterval: 3600)
-    static let oneDay = Reminder(label: "1 dag innan", timeInterval: 86400)
-    static let oneWeek = Reminder(label: "1 vecka innan", timeInterval: 604800)
-    static let custom = Reminder(label: "Anpassad", timeInterval: nil)
+    var id: String { self.rawValue }
+
+    var timeInterval: TimeInterval? {
+        switch self {
+        case .oneHour: return 3600
+        case .oneDay: return 86400
+        case .oneWeek: return 604800
+        case .custom: return nil
+        }
+    }
 }
+
+
