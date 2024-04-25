@@ -8,22 +8,33 @@
 
 /* Begin PBXBuildFile section */
 		CE7AE9712BD6DBDB00B3FD1E /* SchedulifeApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE7AE9702BD6DBDB00B3FD1E /* SchedulifeApp.swift */; };
-		CE7AE9732BD6DBDB00B3FD1E /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE7AE9722BD6DBDB00B3FD1E /* ContentView.swift */; };
+		CE7AE9732BD6DBDB00B3FD1E /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE7AE9722BD6DBDB00B3FD1E /* MainView.swift */; };
 		CE7AE9752BD6DBDE00B3FD1E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CE7AE9742BD6DBDE00B3FD1E /* Assets.xcassets */; };
 		CE7AE9782BD6DBDE00B3FD1E /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CE7AE9772BD6DBDE00B3FD1E /* Preview Assets.xcassets */; };
 		CE7AE97F2BD6E35400B3FD1E /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = CE7AE97E2BD6E35300B3FD1E /* GoogleService-Info.plist */; };
-		CE7AE9822BD6EAAA00B3FD1E /* FirebaseAnalyticsSwift in Frameworks */ = {isa = PBXBuildFile; productRef = CE7AE9812BD6EAAA00B3FD1E /* FirebaseAnalyticsSwift */; };
-		CE7AE9842BD6EAAA00B3FD1E /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = CE7AE9832BD6EAAA00B3FD1E /* FirebaseAuth */; };
-		CE7AE9862BD6EAAA00B3FD1E /* FirebaseFirestoreSwift in Frameworks */ = {isa = PBXBuildFile; productRef = CE7AE9852BD6EAAA00B3FD1E /* FirebaseFirestoreSwift */; };
+		CEA1534B2BD9872C0038CBEB /* Habit.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA1534A2BD9872B0038CBEB /* Habit.swift */; };
+		CEA1534E2BD98C0B0038CBEB /* FirebaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA1534D2BD98C0A0038CBEB /* FirebaseManager.swift */; };
+		CEA153502BD98DCC0038CBEB /* HabitViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA1534F2BD98DCC0038CBEB /* HabitViewModel.swift */; };
+		CEA153522BD993E90038CBEB /* Repetition.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA153512BD993E90038CBEB /* Repetition.swift */; };
+		CEA153542BD994B10038CBEB /* Reminder.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA153532BD994B10038CBEB /* Reminder.swift */; };
+		CEA153562BD995AC0038CBEB /* Category.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA153552BD995AC0038CBEB /* Category.swift */; };
+		CEA153582BD996FA0038CBEB /* AddHabitView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA153572BD996FA0038CBEB /* AddHabitView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		CE7AE96D2BD6DBDB00B3FD1E /* Schedulife.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Schedulife.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CE7AE9702BD6DBDB00B3FD1E /* SchedulifeApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SchedulifeApp.swift; sourceTree = "<group>"; };
-		CE7AE9722BD6DBDB00B3FD1E /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		CE7AE9722BD6DBDB00B3FD1E /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
 		CE7AE9742BD6DBDE00B3FD1E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		CE7AE9772BD6DBDE00B3FD1E /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		CE7AE97E2BD6E35300B3FD1E /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		CEA1534A2BD9872B0038CBEB /* Habit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Habit.swift; sourceTree = "<group>"; };
+		CEA1534D2BD98C0A0038CBEB /* FirebaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseManager.swift; sourceTree = "<group>"; };
+		CEA1534F2BD98DCC0038CBEB /* HabitViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitViewModel.swift; sourceTree = "<group>"; };
+		CEA153512BD993E90038CBEB /* Repetition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Repetition.swift; sourceTree = "<group>"; };
+		CEA153532BD994B10038CBEB /* Reminder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Reminder.swift; sourceTree = "<group>"; };
+		CEA153552BD995AC0038CBEB /* Category.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Category.swift; sourceTree = "<group>"; };
+		CEA153572BD996FA0038CBEB /* AddHabitView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddHabitView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -31,9 +42,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CE7AE9822BD6EAAA00B3FD1E /* FirebaseAnalyticsSwift in Frameworks */,
-				CE7AE9842BD6EAAA00B3FD1E /* FirebaseAuth in Frameworks */,
-				CE7AE9862BD6EAAA00B3FD1E /* FirebaseFirestoreSwift in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -60,7 +68,10 @@
 			isa = PBXGroup;
 			children = (
 				CE7AE9702BD6DBDB00B3FD1E /* SchedulifeApp.swift */,
-				CE7AE9722BD6DBDB00B3FD1E /* ContentView.swift */,
+				CEA1534D2BD98C0A0038CBEB /* FirebaseManager.swift */,
+				CEA153492BD96E120038CBEB /* ViewModels */,
+				CEA153482BD96E070038CBEB /* Models */,
+				CEA153472BD96DFA0038CBEB /* Views */,
 				CE7AE9742BD6DBDE00B3FD1E /* Assets.xcassets */,
 				CE7AE97E2BD6E35300B3FD1E /* GoogleService-Info.plist */,
 				CE7AE9762BD6DBDE00B3FD1E /* Preview Content */,
@@ -74,6 +85,34 @@
 				CE7AE9772BD6DBDE00B3FD1E /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		CEA153472BD96DFA0038CBEB /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				CE7AE9722BD6DBDB00B3FD1E /* MainView.swift */,
+				CEA153572BD996FA0038CBEB /* AddHabitView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		CEA153482BD96E070038CBEB /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				CEA1534A2BD9872B0038CBEB /* Habit.swift */,
+				CEA153512BD993E90038CBEB /* Repetition.swift */,
+				CEA153532BD994B10038CBEB /* Reminder.swift */,
+				CEA153552BD995AC0038CBEB /* Category.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		CEA153492BD96E120038CBEB /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				CEA1534F2BD98DCC0038CBEB /* HabitViewModel.swift */,
+			);
+			path = ViewModels;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -93,9 +132,6 @@
 			);
 			name = Schedulife;
 			packageProductDependencies = (
-				CE7AE9812BD6EAAA00B3FD1E /* FirebaseAnalyticsSwift */,
-				CE7AE9832BD6EAAA00B3FD1E /* FirebaseAuth */,
-				CE7AE9852BD6EAAA00B3FD1E /* FirebaseFirestoreSwift */,
 			);
 			productName = Schedulife;
 			productReference = CE7AE96D2BD6DBDB00B3FD1E /* Schedulife.app */;
@@ -126,7 +162,6 @@
 			);
 			mainGroup = CE7AE9642BD6DBDB00B3FD1E;
 			packageReferences = (
-				CE7AE9802BD6EAA800B3FD1E /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 			);
 			productRefGroup = CE7AE96E2BD6DBDB00B3FD1E /* Products */;
 			projectDirPath = "";
@@ -155,8 +190,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CE7AE9732BD6DBDB00B3FD1E /* ContentView.swift in Sources */,
+				CEA1534E2BD98C0B0038CBEB /* FirebaseManager.swift in Sources */,
+				CEA153542BD994B10038CBEB /* Reminder.swift in Sources */,
+				CEA1534B2BD9872C0038CBEB /* Habit.swift in Sources */,
+				CEA153522BD993E90038CBEB /* Repetition.swift in Sources */,
+				CEA153502BD98DCC0038CBEB /* HabitViewModel.swift in Sources */,
+				CEA153582BD996FA0038CBEB /* AddHabitView.swift in Sources */,
+				CE7AE9732BD6DBDB00B3FD1E /* MainView.swift in Sources */,
 				CE7AE9712BD6DBDB00B3FD1E /* SchedulifeApp.swift in Sources */,
+				CEA153562BD995AC0038CBEB /* Category.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -362,35 +404,6 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
-
-/* Begin XCRemoteSwiftPackageReference section */
-		CE7AE9802BD6EAA800B3FD1E /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/firebase/firebase-ios-sdk";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 10.24.0;
-			};
-		};
-/* End XCRemoteSwiftPackageReference section */
-
-/* Begin XCSwiftPackageProductDependency section */
-		CE7AE9812BD6EAAA00B3FD1E /* FirebaseAnalyticsSwift */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = CE7AE9802BD6EAA800B3FD1E /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
-			productName = FirebaseAnalyticsSwift;
-		};
-		CE7AE9832BD6EAAA00B3FD1E /* FirebaseAuth */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = CE7AE9802BD6EAA800B3FD1E /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
-			productName = FirebaseAuth;
-		};
-		CE7AE9852BD6EAAA00B3FD1E /* FirebaseFirestoreSwift */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = CE7AE9802BD6EAA800B3FD1E /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
-			productName = FirebaseFirestoreSwift;
-		};
-/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = CE7AE9652BD6DBDB00B3FD1E /* Project object */;
 }
