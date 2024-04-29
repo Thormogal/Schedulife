@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import JTAppleCalendar
 
 struct MainView: View {
     var body: some View {
@@ -69,8 +70,13 @@ struct OverviewView: View {
 }
 
 struct ScheduleView: View {
+    var habits: [Habit] = []
+
     var body: some View {
-        Text("Schedule for Habits")
+        JTAppleCalendarWrapper(habits: habits)
+            .onAppear {
+                // Ladda habits eller andra nödvändiga uppgifter
+            }
     }
 }
 

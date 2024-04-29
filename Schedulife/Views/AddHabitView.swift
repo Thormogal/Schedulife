@@ -17,20 +17,22 @@ struct AddHabitView: View {
     @State private var customReminderDate: Date = Date()
     @State private var additionalInfo: String = ""
     @State private var selectedCategory: Category = .custom
-    
+    @State private var showingAlert = false
+    @State private var alertMessage = ""
+
     var body: some View {
         NavigationView {
             VStack {
                 Form {
                     TextField("Name of habit", text: $name)
-                    
+
                     Section {
                         SimplePickerView(selection: $selectedRepetition, label: "Repeats")
                         SimplePickerView(selection: $selectedReminderType, label: "Reminder")
                         CustomReminderPickerView(selectedReminderType: $selectedReminderType, customReminderDate: $customReminderDate, selectedDays: $selectedDays)
                         SimplePickerView(selection: $selectedCategory, label: "Category")
                     }
-                    
+
                     ZStack(alignment: .leading) {
                         if additionalInfo.isEmpty {
                             Text("Enter additional information about your upcoming habit here")
@@ -46,20 +48,31 @@ struct AddHabitView: View {
             .navigationBarItems(leading: Button("Cancel") {
                 presentationMode.wrappedValue.dismiss()
             }, trailing: Button("Save") {
-                let reminder = Reminder(type: selectedReminderType, customDate: (selectedReminderType == .custom ? customReminderDate : nil), daysOfWeek: selectedDays)
-                    let newHabit = Habit(name: name, streak: 0, lastCompleted: nil, reminder: reminder)
-                    habitVM.addHabit(habit: newHabit)
-                    presentationMode.wrappedValue.dismiss()
-                })
+                EventManager.shared.requestFullAccessToEvents { granted, error in
+                    if granted {
+                        let reminder = Reminder(type: selectedReminderType, customDate: (selectedReminderType == .custom ? customReminderDate : nil), daysOfWeek: selectedDays)
+                        let newHabit = Habit(name: name, date: customReminderDate, streak: 0, lastCompleted: nil, reminder: reminder)
+                        habitVM.addHabit(habit: newHabit)
+                        presentationMode.wrappedValue.dismiss()
+                    } else {
+                        DispatchQueue.main.async {
+                            alertMessage = error?.localizedDescription ?? "Calendar access was denied. Please enable it in settings to use this feature."
+                            showingAlert = true
+                        }
+                    }
+                }
+            })
+            .alert(isPresented: $showingAlert) {
+                Alert(title: Text("Permission Denied"), message: Text(alertMessage), dismissButton: .default(Text("OK")))
+            }
         }
     }
 }
 
-
 struct SimplePickerView<T>: View where T: RawRepresentable, T: CaseIterable, T: Identifiable, T.RawValue == String, T: Hashable {
     @Binding var selection: T
     var label: String
-    
+
     var body: some View {
         Picker(label, selection: $selection) {
             ForEach(Array(T.allCases), id: \.self) { value in
@@ -81,9 +94,9 @@ struct CustomReminderPickerView: View {
                     .datePickerStyle(CompactDatePickerStyle())
                     .padding(.leading, 20)
                     .foregroundColor(.blue)
-                
+
                 VStack(alignment: .leading) {
-                    Text("Select days").padding(.leading, 20).foregroundColor(/*@START_MENU_TOKEN@*/.blue/*@END_MENU_TOKEN@*/)
+                    Text("Select days").padding(.leading, 20).foregroundColor(.blue)
                     ScrollView(.horizontal, showsIndicators: false) {
                         HStack {
                             ForEach(DayOfWeek.allCases, id: \.self) { day in
@@ -104,7 +117,7 @@ struct CustomReminderPickerView: View {
             }
         }
     }
-    
+
     func toggleDaySelection(day: DayOfWeek) {
         if selectedDays.contains(day) {
             selectedDays.removeAll { $0 == day }
@@ -113,7 +126,6 @@ struct CustomReminderPickerView: View {
         }
     }
 }
-
 
 extension UIApplication {
     func endEditing() {
@@ -126,7 +138,3 @@ struct MainView_Previews: PreviewProvider {
         AddHabitView()
     }
 }
-
-
-
-
