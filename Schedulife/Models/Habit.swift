@@ -12,5 +12,6 @@ struct Habit: Identifiable, Codable {
     var name: String
     var streak: Int = 0
     var lastCompleted: Date?
+    var reminder: Reminder?
 
 }

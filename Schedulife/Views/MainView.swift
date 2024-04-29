@@ -36,24 +36,34 @@ struct MainView: View {
 
 struct OverviewView: View {
     @State private var showingAddHabit = false
-    
+    @ObservedObject var habitVM = HabitViewModel()
+
     var body: some View {
-        VStack {
-            Text("Overview of Habits")
-                .navigationBarTitle("Habits", displayMode: .inline)
-                .navigationBarItems(trailing: addButton)
+        NavigationView {
+            List(habitVM.habits) { habit in
+                VStack(alignment: .leading) {
+                    Text(habit.name)
+                    if let days = habit.reminder?.daysOfWeek {
+                        Text("Days: \(days.map { $0.rawValue }.joined(separator: ", "))")
+                    }
+                }
+            }
+            .navigationTitle("Habits")
+            .navigationBarItems(trailing: addButton)
+            .onAppear() {
+                self.habitVM.fetchHabits()
+            }
+        }
+        .sheet(isPresented: $showingAddHabit) {
+            AddHabitView()
         }
     }
-    
+
     var addButton: some View {
         Button(action: {
             showingAddHabit = true
         }) {
             Image(systemName: "plus")
-                .imageScale(.large)
-        }
-        .sheet(isPresented: $showingAddHabit) {
-            AddHabitView()
         }
     }
 }

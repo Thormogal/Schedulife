@@ -9,9 +9,11 @@ import SwiftUI
 
 struct AddHabitView: View {
     @Environment(\.presentationMode) var presentationMode
+    @ObservedObject private var habitVM = HabitViewModel()
     @State private var name: String = ""
     @State private var selectedRepetition: Repetition = .daily
-    @State private var selectedReminder: Reminder = .oneHour
+    @State private var selectedDays: [DayOfWeek] = []
+    @State private var selectedReminderType: Reminder.ReminderType = .noReminder
     @State private var customReminderDate: Date = Date()
     @State private var additionalInfo: String = ""
     @State private var selectedCategory: Category = .custom
@@ -20,46 +22,35 @@ struct AddHabitView: View {
         NavigationView {
             VStack {
                 Form {
-                    Section(header:
-                                HStack {
-                        Spacer()
-                        Text("Habit Information").bold().foregroundStyle(.white)
-                        Spacer()
-                    }){
-                        TextField("Name of habit", text: $name)
-                            .padding(.bottom, 20)
+                    TextField("Name of habit", text: $name)
+                    
+                    Section {
                         SimplePickerView(selection: $selectedRepetition, label: "Repeats")
-                        SimplePickerView(selection: $selectedReminder, label: "Reminder")
-                        if selectedReminder == .custom {
-                            DatePicker("Select time", selection: $customReminderDate, displayedComponents: .hourAndMinute)
-                                .datePickerStyle(CompactDatePickerStyle())
-                                .padding(.leading, 20)
-                                .foregroundColor(/*@START_MENU_TOKEN@*/.blue/*@END_MENU_TOKEN@*/)
-                        }
+                        SimplePickerView(selection: $selectedReminderType, label: "Reminder")
+                        CustomReminderPickerView(selectedReminderType: $selectedReminderType, customReminderDate: $customReminderDate, selectedDays: $selectedDays)
                         SimplePickerView(selection: $selectedCategory, label: "Category")
                     }
+                    
                     ZStack(alignment: .leading) {
-                                        if additionalInfo.isEmpty {
-                                            Text("Enter additional information about your upcoming habit here")
-                                                .foregroundColor(.gray)
-                                                .padding(.horizontal, 5)
-                                        }
-                                        TextEditor(text: $additionalInfo)
-                                            .padding(0)
-                                            .frame(maxHeight: 150)
-                                            .foregroundColor(.primary)
-                                    }
+                        if additionalInfo.isEmpty {
+                            Text("Enter additional information about your upcoming habit here")
+                                .foregroundColor(.secondary).opacity(0.4)
+                                .padding(.horizontal, 5)
+                        }
+                        TextEditor(text: $additionalInfo)
+                            .frame(maxHeight: 150)
+                    }
                 }
-                Spacer()
-                Spacer()
             }
             .navigationBarTitle("New habit", displayMode: .inline)
             .navigationBarItems(leading: Button("Cancel") {
                 presentationMode.wrappedValue.dismiss()
             }, trailing: Button("Save") {
-                // Implement logic to save the habit
-                presentationMode.wrappedValue.dismiss()
-            })
+                let reminder = Reminder(type: selectedReminderType, customDate: (selectedReminderType == .custom ? customReminderDate : nil), daysOfWeek: selectedDays)
+                    let newHabit = Habit(name: name, streak: 0, lastCompleted: nil, reminder: reminder)
+                    habitVM.addHabit(habit: newHabit)
+                    presentationMode.wrappedValue.dismiss()
+                })
         }
     }
 }
@@ -75,6 +66,58 @@ struct SimplePickerView<T>: View where T: RawRepresentable, T: CaseIterable, T: 
                 Text(value.rawValue).tag(value)
             }
         }
+    }
+}
+
+struct CustomReminderPickerView: View {
+    @Binding var selectedReminderType: Reminder.ReminderType
+    @Binding var customReminderDate: Date
+    @Binding var selectedDays: [DayOfWeek]
+
+    var body: some View {
+        Group {
+            if selectedReminderType == .custom {
+                DatePicker("Select time", selection: $customReminderDate, displayedComponents: .hourAndMinute)
+                    .datePickerStyle(CompactDatePickerStyle())
+                    .padding(.leading, 20)
+                    .foregroundColor(.blue)
+                
+                VStack(alignment: .leading) {
+                    Text("Select days").padding(.leading, 20).foregroundColor(/*@START_MENU_TOKEN@*/.blue/*@END_MENU_TOKEN@*/)
+                    ScrollView(.horizontal, showsIndicators: false) {
+                        HStack {
+                            ForEach(DayOfWeek.allCases, id: \.self) { day in
+                                Button(action: {
+                                    toggleDaySelection(day: day)
+                                }) {
+                                    Text(day.rawValue)
+                                        .foregroundColor(selectedDays.contains(day) ? .white : .white)
+                                        .padding()
+                                        .background(selectedDays.contains(day) ? .blue : Color.white.opacity(0.2))
+                                        .cornerRadius(10)
+                                }
+                                .padding(.horizontal, 5)
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+    
+    func toggleDaySelection(day: DayOfWeek) {
+        if selectedDays.contains(day) {
+            selectedDays.removeAll { $0 == day }
+        } else {
+            selectedDays.append(day)
+        }
+    }
+}
+
+
+extension UIApplication {
+    func endEditing() {
+        sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
     }
 }
 
