@@ -8,9 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		CE0F42362BE018AC00907102 /* EventManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE0F42352BE018AC00907102 /* EventManager.swift */; };
-		CE0F423B2BE02DD500907102 /* JTAppleCalendar in Frameworks */ = {isa = PBXBuildFile; productRef = CE0F423A2BE02DD500907102 /* JTAppleCalendar */; };
 		CE0F423D2BE02EAA00907102 /* CalendarAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE0F423C2BE02EAA00907102 /* CalendarAdapter.swift */; };
 		CE0F423F2BE0348700907102 /* DateCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE0F423E2BE0348700907102 /* DateCell.swift */; };
+		CE0F42442BE03E5500907102 /* JTAppleCalendar in Frameworks */ = {isa = PBXBuildFile; productRef = CE0F42432BE03E5500907102 /* JTAppleCalendar */; };
 		CE7AE9712BD6DBDB00B3FD1E /* SchedulifeApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE7AE9702BD6DBDB00B3FD1E /* SchedulifeApp.swift */; };
 		CE7AE9732BD6DBDB00B3FD1E /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE7AE9722BD6DBDB00B3FD1E /* MainView.swift */; };
 		CE7AE9752BD6DBDE00B3FD1E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CE7AE9742BD6DBDE00B3FD1E /* Assets.xcassets */; };
@@ -54,7 +54,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				CE98F6C02BDFDB6900099206 /* FirebaseAnalyticsSwift in Frameworks */,
-				CE0F423B2BE02DD500907102 /* JTAppleCalendar in Frameworks */,
+				CE0F42442BE03E5500907102 /* JTAppleCalendar in Frameworks */,
 				CE98F6C22BDFDB6900099206 /* FirebaseAuth in Frameworks */,
 				CE98F6C42BDFDB6900099206 /* FirebaseFirestoreSwift in Frameworks */,
 			);
@@ -71,12 +71,20 @@
 			path = EventsAndPermissions;
 			sourceTree = "<group>";
 		};
+		CE0F42422BE03E5500907102 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		CE7AE9642BD6DBDB00B3FD1E = {
 			isa = PBXGroup;
 			children = (
 				CE0F42372BE022CB00907102 /* Info.plist */,
 				CE7AE96F2BD6DBDB00B3FD1E /* Schedulife */,
 				CE7AE96E2BD6DBDB00B3FD1E /* Products */,
+				CE0F42422BE03E5500907102 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -162,7 +170,7 @@
 				CE98F6BF2BDFDB6900099206 /* FirebaseAnalyticsSwift */,
 				CE98F6C12BDFDB6900099206 /* FirebaseAuth */,
 				CE98F6C32BDFDB6900099206 /* FirebaseFirestoreSwift */,
-				CE0F423A2BE02DD500907102 /* JTAppleCalendar */,
+				CE0F42432BE03E5500907102 /* JTAppleCalendar */,
 			);
 			productName = Schedulife;
 			productReference = CE7AE96D2BD6DBDB00B3FD1E /* Schedulife.app */;
@@ -463,7 +471,7 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		CE0F423A2BE02DD500907102 /* JTAppleCalendar */ = {
+		CE0F42432BE03E5500907102 /* JTAppleCalendar */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = CE0F42392BE02DD500907102 /* XCRemoteSwiftPackageReference "JTAppleCalendar" */;
 			productName = JTAppleCalendar;
