@@ -10,6 +10,7 @@ import Foundation
 struct Habit: Identifiable, Codable {
     var id: String = UUID().uuidString
     var name: String
+    var date: Date
     var streak: Int = 0
     var lastCompleted: Date?
     var reminder: Reminder?

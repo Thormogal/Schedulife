@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		CE0F42362BE018AC00907102 /* EventManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE0F42352BE018AC00907102 /* EventManager.swift */; };
+		CE0F423B2BE02DD500907102 /* JTAppleCalendar in Frameworks */ = {isa = PBXBuildFile; productRef = CE0F423A2BE02DD500907102 /* JTAppleCalendar */; };
+		CE0F423D2BE02EAA00907102 /* CalendarAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE0F423C2BE02EAA00907102 /* CalendarAdapter.swift */; };
+		CE0F423F2BE0348700907102 /* DateCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE0F423E2BE0348700907102 /* DateCell.swift */; };
 		CE7AE9712BD6DBDB00B3FD1E /* SchedulifeApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE7AE9702BD6DBDB00B3FD1E /* SchedulifeApp.swift */; };
 		CE7AE9732BD6DBDB00B3FD1E /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE7AE9722BD6DBDB00B3FD1E /* MainView.swift */; };
 		CE7AE9752BD6DBDE00B3FD1E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CE7AE9742BD6DBDE00B3FD1E /* Assets.xcassets */; };
@@ -28,6 +31,8 @@
 /* Begin PBXFileReference section */
 		CE0F42352BE018AC00907102 /* EventManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventManager.swift; sourceTree = "<group>"; };
 		CE0F42372BE022CB00907102 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		CE0F423C2BE02EAA00907102 /* CalendarAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarAdapter.swift; sourceTree = "<group>"; };
+		CE0F423E2BE0348700907102 /* DateCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateCell.swift; sourceTree = "<group>"; };
 		CE7AE96D2BD6DBDB00B3FD1E /* Schedulife.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Schedulife.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CE7AE9702BD6DBDB00B3FD1E /* SchedulifeApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SchedulifeApp.swift; sourceTree = "<group>"; };
 		CE7AE9722BD6DBDB00B3FD1E /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
@@ -49,6 +54,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				CE98F6C02BDFDB6900099206 /* FirebaseAnalyticsSwift in Frameworks */,
+				CE0F423B2BE02DD500907102 /* JTAppleCalendar in Frameworks */,
 				CE98F6C22BDFDB6900099206 /* FirebaseAuth in Frameworks */,
 				CE98F6C42BDFDB6900099206 /* FirebaseFirestoreSwift in Frameworks */,
 			);
@@ -130,6 +136,8 @@
 			isa = PBXGroup;
 			children = (
 				CEA1534F2BD98DCC0038CBEB /* HabitViewModel.swift */,
+				CE0F423C2BE02EAA00907102 /* CalendarAdapter.swift */,
+				CE0F423E2BE0348700907102 /* DateCell.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -154,6 +162,7 @@
 				CE98F6BF2BDFDB6900099206 /* FirebaseAnalyticsSwift */,
 				CE98F6C12BDFDB6900099206 /* FirebaseAuth */,
 				CE98F6C32BDFDB6900099206 /* FirebaseFirestoreSwift */,
+				CE0F423A2BE02DD500907102 /* JTAppleCalendar */,
 			);
 			productName = Schedulife;
 			productReference = CE7AE96D2BD6DBDB00B3FD1E /* Schedulife.app */;
@@ -185,6 +194,7 @@
 			mainGroup = CE7AE9642BD6DBDB00B3FD1E;
 			packageReferences = (
 				CE98F6BE2BDFDB6900099206 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+				CE0F42392BE02DD500907102 /* XCRemoteSwiftPackageReference "JTAppleCalendar" */,
 			);
 			productRefGroup = CE7AE96E2BD6DBDB00B3FD1E /* Products */;
 			projectDirPath = "";
@@ -213,12 +223,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CE0F423D2BE02EAA00907102 /* CalendarAdapter.swift in Sources */,
 				CE0F42362BE018AC00907102 /* EventManager.swift in Sources */,
 				CEA1534E2BD98C0B0038CBEB /* FirebaseManager.swift in Sources */,
 				CEA153542BD994B10038CBEB /* Reminder.swift in Sources */,
 				CEA1534B2BD9872C0038CBEB /* Habit.swift in Sources */,
 				CEA153522BD993E90038CBEB /* Repetition.swift in Sources */,
 				CEA153502BD98DCC0038CBEB /* HabitViewModel.swift in Sources */,
+				CE0F423F2BE0348700907102 /* DateCell.swift in Sources */,
 				CEA153582BD996FA0038CBEB /* AddHabitView.swift in Sources */,
 				CE7AE9732BD6DBDB00B3FD1E /* MainView.swift in Sources */,
 				CE7AE9712BD6DBDB00B3FD1E /* SchedulifeApp.swift in Sources */,
@@ -432,6 +444,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		CE0F42392BE02DD500907102 /* XCRemoteSwiftPackageReference "JTAppleCalendar" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/patchthecode/JTAppleCalendar.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 8.0.5;
+			};
+		};
 		CE98F6BE2BDFDB6900099206 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/firebase/firebase-ios-sdk";
@@ -443,6 +463,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		CE0F423A2BE02DD500907102 /* JTAppleCalendar */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = CE0F42392BE02DD500907102 /* XCRemoteSwiftPackageReference "JTAppleCalendar" */;
+			productName = JTAppleCalendar;
+		};
 		CE98F6BF2BDFDB6900099206 /* FirebaseAnalyticsSwift */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = CE98F6BE2BDFDB6900099206 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
