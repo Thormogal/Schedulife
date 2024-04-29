@@ -1,7 +1,7 @@
 build/
 DerivedData/
 *.xcodeproj/xcuserdata/
-*.xcodeproj/xcworkspace/
+//*.xcodeproj/xcworkspace/
 
 Objektfiler:
 *.o
