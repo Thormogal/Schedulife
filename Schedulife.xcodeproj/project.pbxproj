@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		CE0F42362BE018AC00907102 /* EventManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE0F42352BE018AC00907102 /* EventManager.swift */; };
 		CE7AE9712BD6DBDB00B3FD1E /* SchedulifeApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE7AE9702BD6DBDB00B3FD1E /* SchedulifeApp.swift */; };
 		CE7AE9732BD6DBDB00B3FD1E /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE7AE9722BD6DBDB00B3FD1E /* MainView.swift */; };
 		CE7AE9752BD6DBDE00B3FD1E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CE7AE9742BD6DBDE00B3FD1E /* Assets.xcassets */; };
@@ -25,6 +26,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		CE0F42352BE018AC00907102 /* EventManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventManager.swift; sourceTree = "<group>"; };
+		CE0F42372BE022CB00907102 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		CE7AE96D2BD6DBDB00B3FD1E /* Schedulife.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Schedulife.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CE7AE9702BD6DBDB00B3FD1E /* SchedulifeApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SchedulifeApp.swift; sourceTree = "<group>"; };
 		CE7AE9722BD6DBDB00B3FD1E /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
@@ -54,9 +57,18 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		CE0F42342BE0186C00907102 /* EventsAndPermissions */ = {
+			isa = PBXGroup;
+			children = (
+				CE0F42352BE018AC00907102 /* EventManager.swift */,
+			);
+			path = EventsAndPermissions;
+			sourceTree = "<group>";
+		};
 		CE7AE9642BD6DBDB00B3FD1E = {
 			isa = PBXGroup;
 			children = (
+				CE0F42372BE022CB00907102 /* Info.plist */,
 				CE7AE96F2BD6DBDB00B3FD1E /* Schedulife */,
 				CE7AE96E2BD6DBDB00B3FD1E /* Products */,
 			);
@@ -75,6 +87,7 @@
 			children = (
 				CE7AE9702BD6DBDB00B3FD1E /* SchedulifeApp.swift */,
 				CEA1534D2BD98C0A0038CBEB /* FirebaseManager.swift */,
+				CE0F42342BE0186C00907102 /* EventsAndPermissions */,
 				CEA153492BD96E120038CBEB /* ViewModels */,
 				CEA153482BD96E070038CBEB /* Models */,
 				CEA153472BD96DFA0038CBEB /* Views */,
@@ -200,6 +213,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CE0F42362BE018AC00907102 /* EventManager.swift in Sources */,
 				CEA1534E2BD98C0B0038CBEB /* FirebaseManager.swift in Sources */,
 				CEA153542BD994B10038CBEB /* Reminder.swift in Sources */,
 				CEA1534B2BD9872C0038CBEB /* Habit.swift in Sources */,
@@ -345,6 +359,7 @@
 				DEVELOPMENT_TEAM = 4X32RPLAW2;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -374,6 +389,7 @@
 				DEVELOPMENT_TEAM = 4X32RPLAW2;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
