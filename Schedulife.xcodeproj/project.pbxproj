@@ -12,6 +12,9 @@
 		CE7AE9752BD6DBDE00B3FD1E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CE7AE9742BD6DBDE00B3FD1E /* Assets.xcassets */; };
 		CE7AE9782BD6DBDE00B3FD1E /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CE7AE9772BD6DBDE00B3FD1E /* Preview Assets.xcassets */; };
 		CE7AE97F2BD6E35400B3FD1E /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = CE7AE97E2BD6E35300B3FD1E /* GoogleService-Info.plist */; };
+		CE98F6C02BDFDB6900099206 /* FirebaseAnalyticsSwift in Frameworks */ = {isa = PBXBuildFile; productRef = CE98F6BF2BDFDB6900099206 /* FirebaseAnalyticsSwift */; };
+		CE98F6C22BDFDB6900099206 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = CE98F6C12BDFDB6900099206 /* FirebaseAuth */; };
+		CE98F6C42BDFDB6900099206 /* FirebaseFirestoreSwift in Frameworks */ = {isa = PBXBuildFile; productRef = CE98F6C32BDFDB6900099206 /* FirebaseFirestoreSwift */; };
 		CEA1534B2BD9872C0038CBEB /* Habit.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA1534A2BD9872B0038CBEB /* Habit.swift */; };
 		CEA1534E2BD98C0B0038CBEB /* FirebaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA1534D2BD98C0A0038CBEB /* FirebaseManager.swift */; };
 		CEA153502BD98DCC0038CBEB /* HabitViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA1534F2BD98DCC0038CBEB /* HabitViewModel.swift */; };
@@ -42,6 +45,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CE98F6C02BDFDB6900099206 /* FirebaseAnalyticsSwift in Frameworks */,
+				CE98F6C22BDFDB6900099206 /* FirebaseAuth in Frameworks */,
+				CE98F6C42BDFDB6900099206 /* FirebaseFirestoreSwift in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -132,6 +138,9 @@
 			);
 			name = Schedulife;
 			packageProductDependencies = (
+				CE98F6BF2BDFDB6900099206 /* FirebaseAnalyticsSwift */,
+				CE98F6C12BDFDB6900099206 /* FirebaseAuth */,
+				CE98F6C32BDFDB6900099206 /* FirebaseFirestoreSwift */,
 			);
 			productName = Schedulife;
 			productReference = CE7AE96D2BD6DBDB00B3FD1E /* Schedulife.app */;
@@ -162,6 +171,7 @@
 			);
 			mainGroup = CE7AE9642BD6DBDB00B3FD1E;
 			packageReferences = (
+				CE98F6BE2BDFDB6900099206 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 			);
 			productRefGroup = CE7AE96E2BD6DBDB00B3FD1E /* Products */;
 			projectDirPath = "";
@@ -404,6 +414,35 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		CE98F6BE2BDFDB6900099206 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/firebase/firebase-ios-sdk";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 10.24.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		CE98F6BF2BDFDB6900099206 /* FirebaseAnalyticsSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = CE98F6BE2BDFDB6900099206 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseAnalyticsSwift;
+		};
+		CE98F6C12BDFDB6900099206 /* FirebaseAuth */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = CE98F6BE2BDFDB6900099206 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseAuth;
+		};
+		CE98F6C32BDFDB6900099206 /* FirebaseFirestoreSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = CE98F6BE2BDFDB6900099206 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseFirestoreSwift;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = CE7AE9652BD6DBDB00B3FD1E /* Project object */;
 }
