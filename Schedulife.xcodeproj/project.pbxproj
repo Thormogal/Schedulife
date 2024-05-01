@@ -20,7 +20,6 @@
 		CE98F6C22BDFDB6900099206 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = CE98F6C12BDFDB6900099206 /* FirebaseAuth */; };
 		CE98F6C42BDFDB6900099206 /* FirebaseFirestoreSwift in Frameworks */ = {isa = PBXBuildFile; productRef = CE98F6C32BDFDB6900099206 /* FirebaseFirestoreSwift */; };
 		CEA1534B2BD9872C0038CBEB /* Habit.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA1534A2BD9872B0038CBEB /* Habit.swift */; };
-		CEA1534E2BD98C0B0038CBEB /* FirebaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA1534D2BD98C0A0038CBEB /* FirebaseManager.swift */; };
 		CEA153502BD98DCC0038CBEB /* HabitViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA1534F2BD98DCC0038CBEB /* HabitViewModel.swift */; };
 		CEA153522BD993E90038CBEB /* Repetition.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA153512BD993E90038CBEB /* Repetition.swift */; };
 		CEA153542BD994B10038CBEB /* Reminder.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA153532BD994B10038CBEB /* Reminder.swift */; };
@@ -40,7 +39,6 @@
 		CE7AE9772BD6DBDE00B3FD1E /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		CE7AE97E2BD6E35300B3FD1E /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		CEA1534A2BD9872B0038CBEB /* Habit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Habit.swift; sourceTree = "<group>"; };
-		CEA1534D2BD98C0A0038CBEB /* FirebaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseManager.swift; sourceTree = "<group>"; };
 		CEA1534F2BD98DCC0038CBEB /* HabitViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitViewModel.swift; sourceTree = "<group>"; };
 		CEA153512BD993E90038CBEB /* Repetition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Repetition.swift; sourceTree = "<group>"; };
 		CEA153532BD994B10038CBEB /* Reminder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Reminder.swift; sourceTree = "<group>"; };
@@ -100,7 +98,6 @@
 			isa = PBXGroup;
 			children = (
 				CE7AE9702BD6DBDB00B3FD1E /* SchedulifeApp.swift */,
-				CEA1534D2BD98C0A0038CBEB /* FirebaseManager.swift */,
 				CE0F42342BE0186C00907102 /* EventsAndPermissions */,
 				CEA153492BD96E120038CBEB /* ViewModels */,
 				CEA153482BD96E070038CBEB /* Models */,
@@ -233,7 +230,6 @@
 			files = (
 				CE0F423D2BE02EAA00907102 /* CalendarAdapter.swift in Sources */,
 				CE0F42362BE018AC00907102 /* EventManager.swift in Sources */,
-				CEA1534E2BD98C0B0038CBEB /* FirebaseManager.swift in Sources */,
 				CEA153542BD994B10038CBEB /* Reminder.swift in Sources */,
 				CEA1534B2BD9872C0038CBEB /* Habit.swift in Sources */,
 				CEA153522BD993E90038CBEB /* Repetition.swift in Sources */,

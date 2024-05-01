@@ -42,11 +42,22 @@ struct OverviewView: View {
     var body: some View {
         NavigationView {
             List(habitVM.habits) { habit in
-                VStack(alignment: .leading) {
-                    Text(habit.name)
-                    if let days = habit.reminder?.daysOfWeek {
-                        Text("Days: \(days.map { $0.rawValue }.joined(separator: ", "))")
+                HStack {
+                    VStack(alignment: .leading) {
+                        Text(habit.name)
+                        if let days = habit.reminder?.daysOfWeek {
+                            Text("Days: \(days.map { $0.rawValue }.joined(separator: ", "))")
+                        }
+                        Text("Streak: \(habit.streak) days")
                     }
+                    Spacer()
+                    Button(action: {
+                        habitVM.toggleComplete(habit: habit)
+                    }) {
+                        Image(systemName: habit.isCompletedToday ? "checkmark.square.fill" : "square")
+                    }
+                    .buttonStyle(BorderlessButtonStyle())
+                    .foregroundColor(habit.isCompletedToday ? .green : .gray)
                 }
             }
             .navigationTitle("Habits")

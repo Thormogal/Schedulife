@@ -14,5 +14,6 @@ struct Habit: Identifiable, Codable {
     var streak: Int = 0
     var lastCompleted: Date?
     var reminder: Reminder?
+    var isCompletedToday: Bool = false
 
 }
