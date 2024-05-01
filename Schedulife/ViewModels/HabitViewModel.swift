@@ -20,7 +20,7 @@ class HabitViewModel: ObservableObject {
     init() {
         fetchHabits()
     }
-
+    
     func fetchHabits() {
         guard let userId = userId else {
             print("Error: User not logged in")
@@ -47,6 +47,32 @@ class HabitViewModel: ObservableObject {
             try db.collection("users").document(userId).collection("habits").document(habit.id).setData(from: habit)
         } catch let error {
             print("Error writing habit to Firestore: \(error)")
+        }
+    }
+}
+
+extension HabitViewModel {
+    func toggleComplete(habit: Habit) {
+        guard let index = habits.firstIndex(where: { $0.id == habit.id }) else { return }
+        habits[index].isCompletedToday.toggle()
+        if habits[index].isCompletedToday {
+            habits[index].streak += 1
+            habits[index].lastCompleted = Date()
+        } else {
+            habits[index].streak = max(0, habits[index].streak - 1)
+        }
+        updateHabit(habit: habits[index])
+    }
+
+func updateHabit(habit: Habit) {
+        guard let userId = userId else {
+            print("Error: User not logged in")
+            return
+        }
+        do {
+            try db.collection("users").document(userId).collection("habits").document(habit.id).setData(from: habit)
+        } catch let error {
+            print("Error updating habit in Firestore: \(error)")
         }
     }
 }

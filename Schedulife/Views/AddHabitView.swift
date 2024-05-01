@@ -106,7 +106,7 @@ struct CustomReminderPickerView: View {
                                     Text(day.rawValue)
                                         .foregroundColor(selectedDays.contains(day) ? .white : .white)
                                         .padding()
-                                        .background(selectedDays.contains(day) ? .blue : Color.white.opacity(0.2))
+                                        .background(selectedDays.contains(day) ? .blue : Color.primary.opacity(0.3))
                                         .cornerRadius(10)
                                 }
                                 .padding(.horizontal, 5)

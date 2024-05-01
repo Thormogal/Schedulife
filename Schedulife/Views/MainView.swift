@@ -47,6 +47,13 @@ struct OverviewView: View {
                     if let days = habit.reminder?.daysOfWeek {
                         Text("Days: \(days.map { $0.rawValue }.joined(separator: ", "))")
                     }
+                    Text("Streak: \(habit.streak) days")
+                }
+                .swipeActions {
+                    Button(habit.isCompletedToday ? "Undo" : "Complete") {
+                        habitVM.toggleComplete(habit: habit)
+                    }
+                    .tint(habit.isCompletedToday ? .red : .green)
                 }
             }
             .navigationTitle("Habits")
