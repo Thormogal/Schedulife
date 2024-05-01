@@ -49,18 +49,39 @@ class HabitViewModel: ObservableObject {
             print("Error writing habit to Firestore: \(error)")
         }
     }
+    
+    func checkAndResetStreaks() {
+        let currentDate = Date()
+        for (index, habit) in habits.enumerated() {
+            if let lastCompleted = habit.lastCompleted {
+                if Calendar.current.isDate(lastCompleted, inSameDayAs: currentDate) {
+                    // Vanan är redan markerad som utförd idag, inget behöver göras
+                    continue
+                }
+                // Kontrollera om `lastCompleted` är från igår eller ännu längre tillbaka
+                if !Calendar.current.isDate(lastCompleted, equalTo: currentDate, toGranularity: .day) && !habit.isCompletedToday {
+                    // Det har gått mer än en dag sedan senaste utförandet
+                    habits[index].streak = 0
+                    habits[index].isCompletedToday = false
+                    updateHabit(habit: habits[index])
+                }
+            }
+        }
+    }
 }
 
 extension HabitViewModel {
     func toggleComplete(habit: Habit) {
         guard let index = habits.firstIndex(where: { $0.id == habit.id }) else { return }
-        habits[index].isCompletedToday.toggle()
+        
         if habits[index].isCompletedToday {
-            habits[index].streak += 1
-            habits[index].lastCompleted = Date()
+            habits[index].isCompletedToday = false
+            habits[index].streak -= 1
         } else {
-            habits[index].streak = max(0, habits[index].streak - 1)
+            habits[index].isCompletedToday = true
+            habits[index].streak += 1
         }
+        habits[index].lastCompleted = Date()
         updateHabit(habit: habits[index])
     }
 
