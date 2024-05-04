@@ -13,8 +13,6 @@ import FirebaseAuth
 class HabitViewModel: ObservableObject {
     @Published var habits: [Habit] = []
     private var db = Firestore.firestore()
-    
-    // Användar-id kan hämtas en gång när ViewModel initieras.
     private var userId: String? = Auth.auth().currentUser?.uid
     
     init() {
@@ -49,6 +47,24 @@ class HabitViewModel: ObservableObject {
             print("Error writing habit to Firestore: \(error)")
         }
     }
+    
+    func removeHabit(habit: Habit) {
+            guard let userId = userId else {
+                print("Error: User not logged in")
+                return
+            }
+
+            db.collection("users").document(userId).collection("habits").document(habit.id).delete { error in
+                if let error = error {
+                    print("Error removing habit: \(error)")
+                } else {
+                    DispatchQueue.main.async {
+                        self.habits.removeAll { $0.id == habit.id }
+                    }
+                    print("Habit successfully removed")
+                }
+            }
+        }
     
     func checkAndResetStreaks() {
         let currentDate = Date()

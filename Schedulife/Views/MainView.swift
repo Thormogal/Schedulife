@@ -42,6 +42,9 @@ struct OverviewView: View {
                                 ForEach(filteredHabits(by: category), id: \.id) { habit in
                                     HabitView(habitVM: habitVM, habit: habit)
                                 }
+                                .onDelete { indices in
+                                    deleteHabits(at: indices, from: category)
+                                }
                             }
                         }
                     }
@@ -60,7 +63,12 @@ struct OverviewView: View {
     }
 
     func filteredHabits(by category: Category) -> [Habit] {
-        return habitVM.habits.filter { $0.category == category }.sorted(by: { $0.date < $1.date })
+        habitVM.habits.filter { $0.category == category }.sorted(by: { $0.date < $1.date })
+    }
+
+    private func deleteHabits(at offsets: IndexSet, from category: Category) {
+        let categoryHabits = filteredHabits(by: category)
+        offsets.map { categoryHabits[$0] }.forEach(habitVM.removeHabit)
     }
 
     var addButton: some View {
