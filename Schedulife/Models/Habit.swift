@@ -15,5 +15,7 @@ struct Habit: Identifiable, Codable {
     var lastCompleted: Date?
     var reminder: Reminder?
     var isCompletedToday: Bool = false
-
+    var repetition: Repetition
+    var category: Category
+    var additionalInfo: String?
 }

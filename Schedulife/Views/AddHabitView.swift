@@ -51,7 +51,7 @@ struct AddHabitView: View {
                 EventManager.shared.requestFullAccessToEvents { granted, error in
                     if granted {
                         let reminder = Reminder(type: selectedReminderType, customDate: (selectedReminderType == .custom ? customReminderDate : nil), daysOfWeek: selectedDays)
-                        let newHabit = Habit(name: name, date: customReminderDate, streak: 0, lastCompleted: nil, reminder: reminder)
+                        let newHabit = Habit(name: name, date: Date(), streak: 0, lastCompleted: nil, reminder: reminder, isCompletedToday: false, repetition: selectedRepetition, category: selectedCategory, additionalInfo: additionalInfo)
                         habitVM.addHabit(habit: newHabit)
                         presentationMode.wrappedValue.dismiss()
                     } else {

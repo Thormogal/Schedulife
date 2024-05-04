@@ -84,8 +84,8 @@ extension HabitViewModel {
         habits[index].lastCompleted = Date()
         updateHabit(habit: habits[index])
     }
-
-func updateHabit(habit: Habit) {
+    
+    func updateHabit(habit: Habit) {
         guard let userId = userId else {
             print("Error: User not logged in")
             return
