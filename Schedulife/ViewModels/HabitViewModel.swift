@@ -68,19 +68,24 @@ class HabitViewModel: ObservableObject {
     
     func checkAndResetStreaks() {
         let currentDate = Date()
+        let calendar = Calendar.current
+        
         for (index, habit) in habits.enumerated() {
-            if let lastCompleted = habit.lastCompleted {
-                if Calendar.current.isDate(lastCompleted, inSameDayAs: currentDate) {
-                    // Vanan är redan markerad som utförd idag, inget behöver göras
-                    continue
-                }
-                // Kontrollera om `lastCompleted` är från igår eller ännu längre tillbaka
-                if !Calendar.current.isDate(lastCompleted, equalTo: currentDate, toGranularity: .day) && !habit.isCompletedToday {
-                    // Det har gått mer än en dag sedan senaste utförandet
+            guard let lastCompleted = habit.lastCompleted else {
+                continue
+            }
+            
+            if calendar.isDate(lastCompleted, inSameDayAs: currentDate) {
+                habits[index].isCompletedToday = true
+            } else {
+                if let yesterday = calendar.date(byAdding: .day, value: -1, to: currentDate),
+                   calendar.isDate(lastCompleted, inSameDayAs: yesterday) {
+                    habits[index].isCompletedToday = false
+                } else {
                     habits[index].streak = 0
                     habits[index].isCompletedToday = false
-                    updateHabit(habit: habits[index])
                 }
+                updateHabit(habit: habits[index])
             }
         }
     }
@@ -89,15 +94,23 @@ class HabitViewModel: ObservableObject {
 extension HabitViewModel {
     func toggleComplete(habit: Habit) {
         guard let index = habits.firstIndex(where: { $0.id == habit.id }) else { return }
-        
+        let currentDate = Date()
+        let calendar = Calendar.current
+
         if habits[index].isCompletedToday {
             habits[index].isCompletedToday = false
             habits[index].streak -= 1
+            habits[index].lastCompleted = nil
         } else {
+            if let lastCompleted = habits[index].lastCompleted,
+               calendar.isDate(lastCompleted, inSameDayAs: calendar.date(byAdding: .day, value: -1, to: currentDate)!) {
+                habits[index].streak += 1
+            } else {
+                habits[index].streak = 1
+            }
             habits[index].isCompletedToday = true
-            habits[index].streak += 1
+            habits[index].lastCompleted = currentDate
         }
-        habits[index].lastCompleted = Date()
         updateHabit(habit: habits[index])
     }
     
