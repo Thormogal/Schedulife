@@ -108,10 +108,23 @@ extension HabitViewModel {
                 DispatchQueue.main.async {
                     // Update the lastCompleted and streak accordingly
                     self.habits[index].lastCompleted = lastDate
-                    if let lastDate = lastDate, calendar.isDate(lastDate, inSameDayAs: calendar.date(byAdding: .day, value: -1, to: currentDate)!) {
-                        self.habits[index].streak += 1  // If the last date was yesterday, maintain the streak
+                    var shouldIncreaseStreak = false
+                    
+                    if let lastDate = lastDate {
+                        switch habit.repetition {
+                        case .daily:
+                            shouldIncreaseStreak = calendar.isDate(lastDate, inSameDayAs: calendar.date(byAdding: .day, value: -1, to: currentDate)!)
+                        case .weekly:
+                            shouldIncreaseStreak = calendar.isDate(lastDate, inSameDayAs: calendar.date(byAdding: .weekOfYear, value: -1, to: currentDate)!)
+                        case .monthly:
+                            shouldIncreaseStreak = calendar.isDate(lastDate, inSameDayAs: calendar.date(byAdding: .month, value: -1, to: currentDate)!)
+                        }
+                    }
+
+                    if shouldIncreaseStreak {
+                        self.habits[index].streak += 1
                     } else {
-                        self.habits[index].streak = 0  // Reset streak if there was a gap
+                        self.habits[index].streak = 0
                     }
                     self.updateHabit(habit: self.habits[index])
                 }
@@ -121,19 +134,35 @@ extension HabitViewModel {
             self.habits[index].isCompletedToday = true
             self.habits[index].lastCompleted = currentDate
 
-            // Check if this is a continuation of a streak
-            if let lastCompleted = self.habits[index].lastCompleted,
-               calendar.isDate(lastCompleted, inSameDayAs: calendar.date(byAdding: .day, value: -1, to: currentDate)!) {
-                self.habits[index].streak += 1
-            } else {
-                self.habits[index].streak = 1
-            }
+            // Asynchronously find the last completed date to check if today should increase the streak
+            self.findLastCompletedDateBefore(date: currentDate, for: habit) { lastDate in
+                DispatchQueue.main.async {
+                    var shouldIncreaseStreak = false
+                    if let lastDate = lastDate {
+                        switch habit.repetition {
+                        case .daily:
+                            shouldIncreaseStreak = calendar.isDate(lastDate, inSameDayAs: calendar.date(byAdding: .day, value: -1, to: currentDate)!)
+                        case .weekly:
+                            shouldIncreaseStreak = calendar.isDate(lastDate, inSameDayAs: calendar.date(byAdding: .weekOfYear, value: -1, to: currentDate)!)
+                        case .monthly:
+                            shouldIncreaseStreak = calendar.isDate(lastDate, inSameDayAs: calendar.date(byAdding: .month, value: -1, to: currentDate)!)
+                        }
+                    }
 
-            // Add the completion date to Firestore
-            self.addCompletionDateForHabit(habit: self.habits[index], date: currentDate)
-            self.updateHabit(habit: self.habits[index])
+                    if shouldIncreaseStreak {
+                        self.habits[index].streak += 1
+                    } else {
+                        self.habits[index].streak = 1
+                    }
+                    
+                    // Add the completion date to Firestore
+                    self.addCompletionDateForHabit(habit: self.habits[index], date: currentDate)
+                    self.updateHabit(habit: self.habits[index])
+                }
+            }
         }
     }
+
 
     
     func canCompleteHabitToday(habit: Habit) -> Bool {
