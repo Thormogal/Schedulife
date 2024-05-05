@@ -71,4 +71,13 @@ struct Reminder: Codable, Identifiable {
     }
 }
 
+extension Reminder {
+    var customDateFormatted: String {
+        guard let date = customDate else { return "N/A" }
+        let formatter = DateFormatter()
+        formatter.timeStyle = .short
+        formatter.dateStyle = .none
+        return formatter.string(from: date)
+    }
+}
 

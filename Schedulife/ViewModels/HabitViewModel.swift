@@ -93,25 +93,114 @@ class HabitViewModel: ObservableObject {
 
 extension HabitViewModel {
     func toggleComplete(habit: Habit) {
-        guard let index = habits.firstIndex(where: { $0.id == habit.id }) else { return }
+        guard let index = self.habits.firstIndex(where: { $0.id == habit.id }),
+              self.canCompleteHabitToday(habit: habit) else { return }
         let currentDate = Date()
         let calendar = Calendar.current
 
-        if habits[index].isCompletedToday {
-            habits[index].isCompletedToday = false
-            habits[index].streak -= 1
-            habits[index].lastCompleted = nil
-        } else {
-            if let lastCompleted = habits[index].lastCompleted,
-               calendar.isDate(lastCompleted, inSameDayAs: calendar.date(byAdding: .day, value: -1, to: currentDate)!) {
-                habits[index].streak += 1
-            } else {
-                habits[index].streak = 1
+        if self.habits[index].isCompletedToday {
+            // Habit is unmarked as completed today
+            self.habits[index].isCompletedToday = false
+            self.habits[index].streak -= 1
+
+            // Asynchronously find the last completed date before today
+            self.findLastCompletedDateBefore(date: currentDate, for: habit) { lastDate in
+                DispatchQueue.main.async {
+                    // Update the lastCompleted and streak accordingly
+                    self.habits[index].lastCompleted = lastDate
+                    if let lastDate = lastDate, calendar.isDate(lastDate, inSameDayAs: calendar.date(byAdding: .day, value: -1, to: currentDate)!) {
+                        self.habits[index].streak += 1  // If the last date was yesterday, maintain the streak
+                    } else {
+                        self.habits[index].streak = 0  // Reset streak if there was a gap
+                    }
+                    self.updateHabit(habit: self.habits[index])
+                }
             }
-            habits[index].isCompletedToday = true
-            habits[index].lastCompleted = currentDate
+        } else {
+            // Mark the habit as completed today if it's a valid day to do so
+            self.habits[index].isCompletedToday = true
+            self.habits[index].lastCompleted = currentDate
+
+            // Check if this is a continuation of a streak
+            if let lastCompleted = self.habits[index].lastCompleted,
+               calendar.isDate(lastCompleted, inSameDayAs: calendar.date(byAdding: .day, value: -1, to: currentDate)!) {
+                self.habits[index].streak += 1
+            } else {
+                self.habits[index].streak = 1
+            }
+
+            // Add the completion date to Firestore
+            self.addCompletionDateForHabit(habit: self.habits[index], date: currentDate)
+            self.updateHabit(habit: self.habits[index])
         }
-        updateHabit(habit: habits[index])
+    }
+
+    
+    func canCompleteHabitToday(habit: Habit) -> Bool {
+        let calendar = Calendar.current
+        let today = Date()
+        switch habit.repetition {
+        case .daily:
+            return true  // Kan alltid utföras varje dag
+        case .weekly:
+            let creationWeekday = calendar.component(.weekday, from: habit.date)
+            let todayWeekday = calendar.component(.weekday, from: today)
+            return creationWeekday == todayWeekday  // Kan endast utföras på samma veckodag som den skapades
+        case .monthly:
+            let creationDay = calendar.component(.day, from: habit.date)
+            let todayDay = calendar.component(.day, from: today)
+            let creationMonth = calendar.component(.month, from: habit.date)
+            let todayMonth = calendar.component(.month, from: today)
+            let creationYear = calendar.component(.year, from: habit.date)
+            let todayYear = calendar.component(.year, from: today)
+            // Hanterar månader med olika antal dagar och skottår
+            if creationDay > 28 {
+                let rangeOfDaysInMonth = calendar.range(of: .day, in: .month, for: today)!
+                if todayDay == rangeOfDaysInMonth.count {
+                    return true  // Kan utföras på den sista dagen i månaden om skapandetagen var > 28
+                }
+            }
+            return creationDay == todayDay && (creationMonth != todayMonth || creationYear != todayYear)  // Kan utföras samma dag i månaden, förutsatt att det inte är samma månad och år som den skapades
+        }
+    }
+    
+    func addCompletionDateForHabit(habit: Habit, date: Date) {
+        guard let userId = userId else {
+            print("Error: User ID is missing")
+            return
+        }
+        let habitId = habit.id
+        let dateString = ISO8601DateFormatter().string(from: date)
+        db.collection("users").document(userId).collection("habits").document(habitId).collection("CompletionDates").document(dateString).setData(["date": dateString]) { error in
+            if let error = error {
+                print("Error adding completion date: \(error.localizedDescription)")
+            }
+        }
+    }
+    
+    func findLastCompletedDateBefore(date: Date, for habit: Habit, completion: @escaping (Date?) -> Void) {
+        guard let userId = userId else {
+            completion(nil)
+            return
+        }
+        let habitId = habit.id
+        let dateFormatter = ISO8601DateFormatter()
+        let dateString = dateFormatter.string(from: date)
+
+        db.collection("users").document(userId).collection("habits").document(habitId).collection("CompletionDates")
+            .whereField("date", isLessThan: dateString)
+            .order(by: "date", descending: true)
+            .limit(to: 1)
+            .getDocuments { (snapshot, error) in
+                if let error = error {
+                    print("Error fetching last completed date: \(error.localizedDescription)")
+                    completion(nil)
+                } else if let documents = snapshot?.documents, let lastDateDoc = documents.first, let lastDateString = lastDateDoc.data()["date"] as? String, let lastDate = dateFormatter.date(from: lastDateString) {
+                    completion(lastDate)
+                } else {
+                    completion(nil)
+                }
+            }
     }
     
     func updateHabit(habit: Habit) {

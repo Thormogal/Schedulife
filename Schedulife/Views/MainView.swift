@@ -115,25 +115,47 @@ struct HabitView: View {
         VStack(alignment: .leading) {
             Text(habit.name)
                 .font(.headline)
-            if let days = habit.reminder?.daysOfWeek {
-                Text("Days: \(days.map { $0.rawValue }.joined(separator: ", "))")
+            Text("Repeats: \(habit.repetition.rawValue)")
+            Spacer()
+            if let reminder = habit.reminder {
+                if reminder.type == .noReminder {
+                    Text("Reminder: \(reminder.type.rawValue)")
+                } else {
+                    let reminderDetails = reminder.type != .custom ? reminder.type.rawValue :
+                        "Custom Reminder at \(reminder.customDateFormatted)"
+                    Text("Reminder: \(reminderDetails)")
+                }
+                if !reminder.daysOfWeek.isEmpty {
+                    Text("Reminder days: \(reminder.daysOfWeek.map { $0.rawValue }.joined(separator: ", "))")
+                }
             }
-            Text("Streak: \(habit.streak) days")
+            Spacer()
             if let info = habit.additionalInfo, !info.isEmpty {
                 Text("Info: \(info)")
             }
             Spacer()
-            Button(action: {
-                habitVM.toggleComplete(habit: habit)
-            }) {
-                Image(systemName: habit.isCompletedToday ? "checkmark.square.fill" : "square")
+            
+            // Using HStack to place streak and button side by side
+            HStack {
+                Text("Streak: \(habit.streak) days")
+                    .frame(alignment: .leading)  // Aligns the text to the left
+                
+                Spacer()  // Pushes the button to the right
+
+                Button(action: {
+                    habitVM.toggleComplete(habit: habit)
+                }) {
+                    Image(systemName: habit.isCompletedToday ? "checkmark.square.fill" : "square")
+                }
+                .disabled(!self.habitVM.canCompleteHabitToday(habit: habit))
+                .buttonStyle(BorderlessButtonStyle())
+                .foregroundColor(habit.isCompletedToday ? .green : .gray)
             }
-            .buttonStyle(BorderlessButtonStyle())
-            .foregroundColor(habit.isCompletedToday ? .green : .gray)
         }
-        .padding(.vertical, 8)
+        .padding(.all, 8)  // Provides padding around the VStack contents
     }
 }
+
 
 
 struct ScheduleView: View {

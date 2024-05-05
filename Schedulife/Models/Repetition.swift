@@ -11,7 +11,6 @@ enum Repetition: String, Codable, CaseIterable, Identifiable {
     case daily = "Every day"
     case weekly = "Every week"
     case monthly = "Every month"
-    case custom = "Customized"
 
     var id: String { self.rawValue }
 }
