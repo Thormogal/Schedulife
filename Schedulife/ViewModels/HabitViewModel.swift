@@ -71,22 +71,29 @@ class HabitViewModel: ObservableObject {
         let calendar = Calendar.current
         
         for (index, habit) in habits.enumerated() {
+            habits[index].isCompletedToday = false
+            
             guard let lastCompleted = habit.lastCompleted else {
+                updateHabit(habit: habits[index])
                 continue
             }
             
-            if calendar.isDate(lastCompleted, inSameDayAs: currentDate) {
-                habits[index].isCompletedToday = true
-            } else {
-                if let yesterday = calendar.date(byAdding: .day, value: -1, to: currentDate),
-                   calendar.isDate(lastCompleted, inSameDayAs: yesterday) {
-                    habits[index].isCompletedToday = false
-                } else {
-                    habits[index].streak = 0
-                    habits[index].isCompletedToday = false
-                }
-                updateHabit(habit: habits[index])
+            var shouldResetStreak = true
+            
+            switch habit.repetition {
+            case .daily:
+                shouldResetStreak = !calendar.isDate(lastCompleted, inSameDayAs: calendar.date(byAdding: .day, value: -1, to: currentDate)!)
+            case .weekly:
+                shouldResetStreak = !calendar.isDate(lastCompleted, inSameDayAs: calendar.date(byAdding: .weekOfYear, value: -1, to: currentDate)!)
+            case .monthly:
+                shouldResetStreak = !calendar.isDate(lastCompleted, inSameDayAs: calendar.date(byAdding: .month, value: -1, to: currentDate)!)
             }
+            
+            if shouldResetStreak {
+                habits[index].streak = 0
+            }
+            
+            updateHabit(habit: habits[index])
         }
     }
 }
@@ -96,70 +103,86 @@ extension HabitViewModel {
         guard let index = self.habits.firstIndex(where: { $0.id == habit.id }),
               self.canCompleteHabitToday(habit: habit) else { return }
         let currentDate = Date()
-        let calendar = Calendar.current
 
         if self.habits[index].isCompletedToday {
-            // Habit is unmarked as completed today
+            // Unmark the habit as completed today
             self.habits[index].isCompletedToday = false
-            self.habits[index].streak -= 1
-
-            // Asynchronously find the last completed date before today
-            self.findLastCompletedDateBefore(date: currentDate, for: habit) { lastDate in
-                DispatchQueue.main.async {
-                    // Update the lastCompleted and streak accordingly
-                    self.habits[index].lastCompleted = lastDate
-                    var shouldIncreaseStreak = false
-                    
-                    if let lastDate = lastDate {
-                        switch habit.repetition {
-                        case .daily:
-                            shouldIncreaseStreak = calendar.isDate(lastDate, inSameDayAs: calendar.date(byAdding: .day, value: -1, to: currentDate)!)
-                        case .weekly:
-                            shouldIncreaseStreak = calendar.isDate(lastDate, inSameDayAs: calendar.date(byAdding: .weekOfYear, value: -1, to: currentDate)!)
-                        case .monthly:
-                            shouldIncreaseStreak = calendar.isDate(lastDate, inSameDayAs: calendar.date(byAdding: .month, value: -1, to: currentDate)!)
-                        }
-                    }
-
-                    if shouldIncreaseStreak {
-                        self.habits[index].streak += 1
-                    } else {
-                        self.habits[index].streak = 0
-                    }
-                    self.updateHabit(habit: self.habits[index])
-                }
-            }
+            // Remove the completion date from Firestore
+            self.removeCompletionDateForHabit(habit: self.habits[index], date: currentDate)
+            // Do not decrease streak unless necessary as per your game rules
+            self.updateHabit(habit: self.habits[index])
         } else {
-            // Mark the habit as completed today if it's a valid day to do so
+            // Mark the habit as completed today
             self.habits[index].isCompletedToday = true
             self.habits[index].lastCompleted = currentDate
 
-            // Asynchronously find the last completed date to check if today should increase the streak
+            // Asynchronously check the last completed date to decide if the streak should increase
             self.findLastCompletedDateBefore(date: currentDate, for: habit) { lastDate in
                 DispatchQueue.main.async {
                     var shouldIncreaseStreak = false
                     if let lastDate = lastDate {
-                        switch habit.repetition {
-                        case .daily:
-                            shouldIncreaseStreak = calendar.isDate(lastDate, inSameDayAs: calendar.date(byAdding: .day, value: -1, to: currentDate)!)
-                        case .weekly:
-                            shouldIncreaseStreak = calendar.isDate(lastDate, inSameDayAs: calendar.date(byAdding: .weekOfYear, value: -1, to: currentDate)!)
-                        case .monthly:
-                            shouldIncreaseStreak = calendar.isDate(lastDate, inSameDayAs: calendar.date(byAdding: .month, value: -1, to: currentDate)!)
-                        }
+                        shouldIncreaseStreak = self.shouldIncreaseStreak(habit: habit, lastDate: lastDate, currentDate: currentDate)
                     }
 
                     if shouldIncreaseStreak {
                         self.habits[index].streak += 1
                     } else {
-                        self.habits[index].streak = 1
+                        // Only set to 1 if it's the first completion
+                        if self.habits[index].streak == 0 {
+                            self.habits[index].streak = 1
+                        }
                     }
-                    
-                    // Add the completion date to Firestore
+
                     self.addCompletionDateForHabit(habit: self.habits[index], date: currentDate)
                     self.updateHabit(habit: self.habits[index])
                 }
             }
+        }
+    }
+    
+    func updateStreakForHabit(index: Int, currentDate: Date, completion: @escaping (Bool) -> Void) {
+        guard let habit = self.habits[safe: index] else { return }  // Safe call to not go out of bounds
+        let calendar = Calendar.current
+
+        // Hitta det senaste fullbordade datumet före idag
+        self.findLastCompletedDateBefore(date: currentDate, for: habit) { lastDate in
+            DispatchQueue.main.async {
+                guard let lastDate = lastDate else {
+                    self.habits[index].streak = 0  // Återställer streak om inget senaste datum finns
+                    completion(false)
+                    return
+                }
+
+                var shouldIncreaseStreak = false
+                switch habit.repetition {
+                case .daily:
+                    shouldIncreaseStreak = calendar.isDate(lastDate, inSameDayAs: calendar.date(byAdding: .day, value: -1, to: currentDate)!)
+                case .weekly:
+                    shouldIncreaseStreak = calendar.isDate(lastDate, inSameDayAs: calendar.date(byAdding: .weekOfYear, value: -1, to: currentDate)!)
+                case .monthly:
+                    shouldIncreaseStreak = calendar.isDate(lastDate, inSameDayAs: calendar.date(byAdding: .month, value: -1, to: currentDate)!)
+                }
+
+                if shouldIncreaseStreak {
+                    self.habits[index].streak += 1
+                } else {
+                    self.habits[index].streak = 1
+                }
+
+                completion(shouldIncreaseStreak)
+            }
+        }
+    }
+
+    func shouldIncreaseStreak(habit: Habit, lastDate: Date, currentDate: Date) -> Bool {
+        let calendar = Calendar.current
+        switch habit.repetition {
+        case .daily:
+            return calendar.isDate(lastDate, inSameDayAs: calendar.date(byAdding: .day, value: -1, to: currentDate)!)
+        case .weekly:
+            return calendar.isDate(lastDate, inSameDayAs: calendar.date(byAdding: .weekOfYear, value: -1, to: currentDate)!)
+        case .monthly:
+            return calendar.isDate(lastDate, inSameDayAs: calendar.date(byAdding: .month, value: -1, to: currentDate)!)
         }
     }
 
@@ -200,11 +223,17 @@ extension HabitViewModel {
         }
         let habitId = habit.id
         let dateString = ISO8601DateFormatter().string(from: date)
-        db.collection("users").document(userId).collection("habits").document(habitId).collection("CompletionDates").document(dateString).setData(["date": dateString]) { error in
-            if let error = error {
-                print("Error adding completion date: \(error.localizedDescription)")
-            }
+        db.collection("users").document(userId).collection("habits").document(habitId).collection("CompletionDates").document(dateString).setData(["date": dateString])
+    }
+    
+    func removeCompletionDateForHabit(habit: Habit, date: Date) {
+        guard let userId = userId else {
+            print("Error: User ID is missing")
+            return
         }
+        let habitId = habit.id
+        let dateString = ISO8601DateFormatter().string(from: date)
+        db.collection("users").document(userId).collection("habits").document(habitId).collection("CompletionDates").document(dateString).delete()
     }
     
     func findLastCompletedDateBefore(date: Date, for habit: Habit, completion: @escaping (Date?) -> Void) {
@@ -242,5 +271,12 @@ extension HabitViewModel {
         } catch let error {
             print("Error updating habit in Firestore: \(error)")
         }
+    }
+}
+
+//avoid crashes if index is out of bounds in arrays
+extension Array {
+    subscript(safe index: Int) -> Element? {
+        return indices.contains(index) ? self[index] : nil
     }
 }
