@@ -158,13 +158,62 @@ struct HabitView: View {
 
 
 
+import SwiftUI
+
 struct ScheduleView: View {
+    @ObservedObject var calendarViewModel = CalendarViewModel()
     var habits: [Habit] = []
 
     var body: some View {
-        Text("Schedule")
+        VStack {
+            Text("\(calendarViewModel.currentMonth, formatter: monthYearFormatter)").font(.headline)
+            HStack {
+                Button("Previous") { calendarViewModel.previousMonth() }
+                    .padding(.leading, 10)
+                Spacer()
+                Button("Next") { calendarViewModel.nextMonth() }
+                    .padding(.trailing, 10)
+            }
+            Spacer()
+
+            LazyVGrid(columns: Array(repeating: GridItem(.flexible()), count: 7), spacing: 0) {
+                ForEach(["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"], id: \.self) { weekday in
+                    Text(weekday).font(.headline)
+                }
+            }.padding(.leading, 10)
+                .padding(.trailing, 10)
+
+            LazyVGrid(columns: Array(repeating: GridItem(.flexible()), count: 7), spacing: 0) {
+                ForEach(calendarViewModel.daysInMonth(), id: \.self) { date in
+                    if let date = date {
+                        Text("\(date, formatter: dayFormatter)")
+                            .padding(8)
+                            .background(calendarViewModel.isToday(date) ? Color.blue : Color.clear)
+                            .cornerRadius(5)
+                    } else {
+                        Text("")
+                    }
+                }
+            }.padding(.leading, 10)
+                .padding(.trailing, 10)
+            Spacer()
+            Spacer()
+        }
+    }
+
+    private var monthYearFormatter: DateFormatter {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "MMMM yyyy"
+        return formatter
+    }
+
+    private var dayFormatter: DateFormatter {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "d"
+        return formatter
     }
 }
+
 
 struct Mainpage: PreviewProvider {
     static var previews: some View {
